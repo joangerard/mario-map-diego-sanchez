@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+- 2.7.2 #version default 
+- 2.6.6 #mi version
+- 2.6.5 #otra version por si acaso
+#- jruby
+#- truffleruby
