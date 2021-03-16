@@ -1,6 +1,8 @@
+from BoxMatrix import BoxMatrix
 from queue import Queue
 from enum import Enum
-
+import numpy as np
+from Box import *
 # MARIO MAP
 graph = {'A': ['B', 'C', 'E'],
          'B': ['A', 'D', 'E'],
@@ -10,24 +12,30 @@ graph = {'A': ['B', 'C', 'E'],
          'F': ['C'],
          'G': ['C']}
 
-# CONSTANTS
-emptyState = 0                  # Empty space
-blockedState = 1                # Walls
-goalState = 2                   # Pipes
-initialState = graph[1]         # Starting point
+mario_map = BoxMatrix(np.array(
+    [Box(BoxType.empty)],
+    [Box(BoxType.empty)],
+    [Box(BoxType.empty)],
+    [Box(BoxType.pipe)]))
+
 
 # SEARCH STATES
-
-
 class SearchState(Enum):
     success = 0
     cutoff = 1
     failure = 2
 
 
+# CONSTANTS
+emptyState = 0                  # Empty space
+blockedState = 1                # Walls
+goalState = 2                   # Pipes
+initialState = graph[1]         # Starting point
+
+
 # BFS SOLUTION
 state = initialState  # Setting up the state
-actions = 0  # Setting up Actions                           (NOT DONE YET!!)
+actions = []  # Setting up Actions                           (NOT DONE YET!!)
 
 
 def PipeBfs(state, goalState, actions):
@@ -47,7 +55,12 @@ def PipeBfs(state, goalState, actions):
 
 
 def TransitionFunction(state, actions):
-    return 0  # x                                           (NOT DONE YET!!)
+    # obtiene las cajas que estan arriba, der, izq y abajo. en lista:
+    transitions = state.GetTransitionNodes()  # (NOT DONE YET!!)
+    for transition in transitions:
+        if transition != None:
+            actions.append(transition)
+    return actions
 
 
 def PushSuccesors(succesors, queue):

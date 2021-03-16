@@ -36,6 +36,19 @@ de un estado a otro es 1.
 
 ## 2. Algoritmo para la solucion
 
+BFS
+Porque es completo y siempre encontrara la solucion o pipe.
+
+Es optimo, porque encontrara la solucion con menor costo o el pipe mas cercano al estado inicial.
+
+En cuento a su complejidad de tiempo: es b^d  lo cual no es tan malo a comparacion de las otras opciones
+(Dfs, Dls, Iterative deepening), porque aunque Dls sea mejor en tiempo, Dls no es completo ni optimo.
+
+En cuanto al space complexity, se todas las demas opciones son mejores, pero no compensan, porque no son optimas
+ni completas.
+
+
+
 ### 2.A Justificacion de desicion
 
 ## 3. Explicacion breve de la logica del Algoritmo
