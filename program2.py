@@ -1,35 +1,5 @@
 import queue
 from enum import Enum
-import time
-#import numpy
-
-"""
-def CreateMarioMap():
-    mariomap = numpy.array(
-        ["#", "#", "#", "#", "#", "O", "#"],
-        ["#", " ", " ", " ", "#", " ", "#"],
-        ["#", " ", "#", " ", "#", " ", "#"],
-        ["#", " ", "#", " ", " ", " ", "#"],
-        ["#", " ", "#", "#", "#", " ", "#"],
-        ["#", " ", " ", " ", "#", " ", "#"],
-        ["#", "#", "#", "X", "#", "#", "#"]
-    )
-    return mariomap
-"""
-
-
-def CreateMarioMap2():
-    mariomap = []
-    mariomap.append(["#", "#", "#", "#", "#", "O", "#", "#", "#"])
-    mariomap.append(["#", " ", " ", " ", " ", " ", " ", " ", "#"])
-    mariomap.append(["#", " ", "#", "#", " ", "#", "#", " ", "#"])
-    mariomap.append(["#", " ", "#", "#", " ", " ", "#", " ", "#"])
-    mariomap.append(["#", " ", "#", "#", "#", " ", "#", " ", "#"])
-    mariomap.append(["#", " ", "#", "#", "#", " ", "#", " ", "#"])
-    mariomap.append(["#", " ", "#", "#", "#", " ", "#", "#", "#"])
-    mariomap.append(["#", " ", " ", " ", " ", " ", " ", " ", "#"])
-    mariomap.append(["#", "#", "X", "#", "#", "#", "#", "#", "#"])
-    return mariomap
 
 #BOX KIND
 class BKind(Enum):
@@ -148,8 +118,6 @@ def findEnd(mario_map, moves):
     return False
 
 
-
-
 actions = queue.Queue()  # Actions Queue
 actions.put("")          # Initializing empty queue
 path = ""  # First path in map
@@ -157,8 +125,6 @@ mario_map = CreateMarioMap3()  # Creating the map
 moves = ["L", "R", "U", "D"]
 while not findEnd(mario_map, path):# == False:
     path = actions.get()  # Set of moves Ex. LLURU
-    ##print(path)
-    #time.sleep(5)
     for move in moves:
         posible_path = path + move
         #print(posible_path)

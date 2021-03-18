@@ -2,12 +2,13 @@ import queue
 from enum import Enum
 from GoalTester import GoalTester
 from PathValidator import PathValidator
-class PipeFinder:
-    def FindPipe(self, mario_map):
+from MapCreator import MapCreator
+class PipeFinder(object):
+    def FindPipe(self):
         actions = queue.Queue()  # Actions Queue
         actions.put("")          # Initializing empty queue
         path = ""                # First path in map
-        #mario_map = CreateMarioMap3()  # Creating the map
+        mario_map = MapCreator().CreateMarioMap3()  # Creating the map
         moves = ["L", "R", "U", "D"]
         while not GoalTester().findEnd(mario_map, path):         # == False:
             path = actions.get()                    # Set of moves Ex. LLURU

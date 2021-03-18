@@ -1,6 +1,6 @@
 from BoxKind import BKind
 
-class PathValidator:
+class PathValidator(object):
     def Valid(self, mario_map, moves):
         for x, pos in enumerate(mario_map[0]):
             if pos.kind.name == BKind.start.name:

@@ -1,8 +1,9 @@
 import queue
 from enum import Enum
 from BoxKind import BKind
-
-class GoalTester:
+from Box import Box
+from MarioMapPrinter import MarioMapPrinter
+class GoalTester(object):
     def findEnd(self, mario_map, moves):
         start = 0
         for x, pos in enumerate(mario_map[0]):
@@ -26,6 +27,6 @@ class GoalTester:
 
         if mario_map[j][i].kind == BKind.pipe:
             print("Found: " + moves)
-            printMap(mario_map, moves)
+            MarioMapPrinter().printMap(mario_map, moves)
             return True
         return False
