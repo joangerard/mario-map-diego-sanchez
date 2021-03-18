@@ -65,6 +65,11 @@ Primero el usuario escoge uno de los mapas predeterminados y escoge en que casil
 
 Luego el usuario podra escoger en que casillas vacias colocar las tuberias que guste.
 
+### ACLARACION IMPORTANTE
+
+No logre hacer que el usuario pueda personalizar su mapa de mario. En su lugar solo alcance a usar un mapa por defecto que se puede cambiar manualmente con codigo.
+Es necesario crear el mapa y definir el nodo de inicio (Box.kind.BKind.start) y el nodo objetivo (Box.kind.BKind.pipe)
+
 ### EXPLICACION LOGICA DEL ALGORITMO PRINCIPAL (BFS):
 
 Mientras que no se haya encontrado la tuberia mas cercana o se determine un "Fail", el algoritmo hara lo siguiente:
@@ -82,6 +87,8 @@ Cuando se encuentra la tuberia mas cercana:
      Se imprimen los movimientos realizados para llegar hasta dicha tuberia, es decir, el camino *path* que conduce hasta dicha tuberia.
 
      Finalmente se imprime el mapa y en cada casilla indicada por el *path*, marcando esas casillas con algun caracter distintivo para delinear y diferenciar el camino de solucion, al printearse en consola.
+
+
 
 ### VARIABLES IMPORTANTES
 
@@ -103,15 +110,57 @@ Almacena dichas acciones en un array de strings
 #### posible_path:
  Es lo mismo que el 'path', pero es una variable auxiliar que almacena todos los sets de movimientos posibles, para validarlos e insertarlos en a cola de acciones "actions"
 
-### METODOS
+### CLASES().METODOS()
 
-#### pipeFinderBFS():
-Es aquel que corre todo el algoritmo principal una vez dadas las entradas necesarias.
+#### BoxKind().BKind(enum)
+ Es una clase enumeradora que contiene los tipos de casillas que pueden haber (vacia,bloqueada,tuberia,inicio y camino de solucion "path")
 
-#### findEnd():
+#### Box
+Clase que contiene la definicion de los atributos que tiene cada casilla de mario.
+Atributo *kind*, es un atributo de tipo BKind.
+
+#### PipeFinder().FindPipe():
  Valida si es que ya se encontro una tuberia o no.
  De este metodo depende que finalice la ejecucion del metodo principal de BFS.
+ Una vez que se encuentra la tuberia, imprime el *path* o movimientos que conducen a la tuberia mas cercana.
+ Luego llama al metodo printMap(), para que imprima el mapa con el camino de solucion.
 
+#### MarioMapPrinter().printMap():
+ Se encarga de imprimir el mapa y a lavez delinear el camino que lleva del initial state/start, al goal state/tuberia.
 
+#### PathValidator
+ Valida si un path o conjunto de movimientos, es valido y no se choca con un bloque o se sale del mapa.
+
+#### MapCreator().CreateMarioMap3()
+ La intencion de la clase era que se pueda hacer la creacion de un mapa personalizado, pero no se logro.
+ Funcionamiento: Crea un mismo mapa por defecto con cualquiera de sus 3 metodos
+
+ Cada mapa es un array de arrays con elementos de tipo Box.BKind
+
+ ## 4. INSTRUCCIONES INSTALACION
+
+Bajarse o clonarse el repositorio.
+(No se necesitan hacer descargas adicionales)
+
+Hice 2 formas de correr el programa:
+
+## program1.py
+
+Esta solucion es diferente de "program2.py", porque esta mejor organizada, con una estructura de clases como ya se explico en puntos anteriores.
+
+Simplemente ejecutar "py .\program1.py" en la consola dentro de la carpeta raiz del proyecto.
+
+Se abrira un menu que indica que se debe elegir las opciones 1, 2, 3 o 9.
+Las primeras tres opciones hacen lo mismo. Resuelven el unico mapa por defecto que se logro crear.
+
+Ingresar una opcion y ver el resultado del programa en consola. Est
+
+## program2.py
+
+Simplemente ejecutar "py .\program2.py" en la consola dentro de la carpeta raiz del proyecto.
+
+Esta version del proyecto tiene todas las clases y metodos en el mismo archivo "program2.py" y tampoco tiene un menu ilustrativo.
+
+Pero resuelve el mismo mapa predeterminado que es el unico que se llego a crear y muestra el resultado directamente luego de la ejecucion.
 
 

@@ -127,7 +127,6 @@ while not findEnd(mario_map, path):# == False:
     path = actions.get()  # Set of moves Ex. LLURU
     for move in moves:
         posible_path = path + move
-        #print(posible_path)
         if Valid(mario_map, posible_path):  # Validates if a path is posible
             actions.put(posible_path)
 

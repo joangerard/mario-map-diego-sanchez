@@ -9,7 +9,7 @@ class MarioMapPrinter:
         i = start
         j = 0
         pos = set()
-        #print(pos)
+        
         for move in path:
             if move == "L":
                 i -= 1
