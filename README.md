@@ -65,6 +65,24 @@ Primero el usuario escoge uno de los mapas predeterminados y escoge en que casil
 
 Luego el usuario podra escoger en que casillas vacias colocar las tuberias que guste.
 
+### EXPLICACION LOGICA DEL ALGORITMO PRINCIPAL (BFS):
+
+Mientras que no se haya encontrado la tuberia mas cercana o se determine un "Fail", el algoritmo hara lo siguiente:
+
+    Verifica si es que se encontro la solucion/tuberia, basandose en el *path* y en el *mario_map*.
+
+    Luego actualiza con el *path* con el path que desencolamos de la cola de movimientos *actions*.
+
+    Luego se obtiene cada posible siguiente path que podamos realizar del array de movimientos *moves*. Cada movimiento se concatena con el ultimo *path* obtenido y esta concatenacion la guardamos en la variable string *posible_path*.
+
+    Luego, para cada *posible_path*, se realiza una validacion para ver que no nos conduzca a un camino indeseado y si es asi se descarta. Caso contrario, se agrega el *posible_path* ya validado en la cola de acciones *actions*.
+
+Cuando se encuentra la tuberia mas cercana:
+
+     Se imprimen los movimientos realizados para llegar hasta dicha tuberia, es decir, el camino *path* que conduce hasta dicha tuberia.
+
+     Finalmente se imprime el mapa y en cada casilla indicada por el *path*, marcando esas casillas con algun caracter distintivo para delinear y diferenciar el camino de solucion, al printearse en consola.
+
 ### VARIABLES IMPORTANTES
 
 #### mario_map:
@@ -76,6 +94,7 @@ Almacena dichas acciones en un array de strings
 
 #### path:
  Es una variable de tipo "string", que va guardando cada conjunto o set de movimientos expulsados de la cola de acciones.
+ Ejemplo: "LURUUR" indica que fue a la izquierda, luego arriba, derecha, arriba, arriba y derecha.
 
 
 #### actions:
@@ -95,6 +114,4 @@ Es aquel que corre todo el algoritmo principal una vez dadas las entradas necesa
 
 
 
-BFS
 
-Mientras que no se haya encontrado la tuberia mas cercana el algoritmo hara lo siguiente:
