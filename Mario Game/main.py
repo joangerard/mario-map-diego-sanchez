@@ -1,7 +1,23 @@
 import queue
 from enum import Enum
+import time
+#import numpy
 
-"""""
+"""
+def CreateMarioMap():
+    mariomap = numpy.array(
+        ["#", "#", "#", "#", "#", "O", "#"],
+        ["#", " ", " ", " ", "#", " ", "#"],
+        ["#", " ", "#", " ", "#", " ", "#"],
+        ["#", " ", "#", " ", " ", " ", "#"],
+        ["#", " ", "#", "#", "#", " ", "#"],
+        ["#", " ", " ", " ", "#", " ", "#"],
+        ["#", "#", "#", "X", "#", "#", "#"]
+    )
+    return mariomap
+"""
+
+
 def CreateMarioMap2():
     mariomap = []
     mariomap.append(["#", "#", "#", "#", "#", "O", "#", "#", "#"])
@@ -13,25 +29,15 @@ def CreateMarioMap2():
     mariomap.append(["#", " ", "#", "#", "#", " ", "#", "#", "#"])
     mariomap.append(["#", " ", " ", " ", " ", " ", " ", " ", "#"])
     mariomap.append(["#", "#", "X", "#", "#", "#", "#", "#", "#"])
-    return mariomap"""
-"""def CreateMarioMap2():
-    mariomap = []
-    mariomap.append([Box("#"), Box("#"), Box("#"), Box("#"), Box("#"), Box("O"), Box("#"), Box("#"), Box("#")])
-    mariomap.append([Box("#"), Box(" "), Box(" "), Box(" "), Box(" "), Box(" "), Box(" "), Box(" "), Box("#")])
-    mariomap.append([Box("#"), Box(" "), Box("#"), Box("#"), Box(" "), Box("#"), Box("#"), Box(" "), Box("#")])
-    mariomap.append([Box("#"), Box(" "), Box("#"), Box("#"), Box(" "), Box(" "), Box("#"), Box(" "), Box("#")])
-    mariomap.append([Box("#"), Box(" "), Box("#"), Box("#"), Box("#"), Box(" "), Box("#"), Box(" "), Box("#")])
-    mariomap.append([Box("#"), Box(" "), Box("#"), Box("#"), Box("#"), Box(" "), Box("#"), Box(" "), Box("#")])
-    mariomap.append([Box("#"), Box(" "), Box("#"), Box("#"), Box("#"), Box(" "), Box("#"), Box("#"), Box("#")])
-    mariomap.append([Box("#"), Box(" "), Box(" "), Box(" "), Box(" "), Box(" "), Box(" "), Box(" "), Box("#")])
-    mariomap.append([Box("#"), Box("#"), Box("X"), Box("#"), Box("#"), Box("#"), Box("#"), Box("#"), Box("#")])
-    return mariomap"""
+    return mariomap
 
 #BOX KIND
 class BKind(Enum):
     block = "#" #0
     empty = " " #1
-    pipe = "O"  #2
+    pipe = "X"  #2
+    start = "O"
+    path = "+"
 
 #MAP CELLS / BOXES
 class Box:
@@ -40,9 +46,9 @@ class Box:
         self.cost = cost
 
 
-def CreateMarioMap2():
+def CreateMarioMap3():
     mariomap = []
-    mariomap.append([Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.pipe), Box(BKind.block), Box(BKind.block), Box(BKind.block)])
+    mariomap.append([Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.start), Box(BKind.block), Box(BKind.block), Box(BKind.block)])
     mariomap.append([Box(BKind.block), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.block)])
     mariomap.append([Box(BKind.block), Box(BKind.empty), Box(BKind.block), Box(BKind.block), Box(BKind.empty), Box(BKind.block), Box(BKind.block), Box(BKind.empty), Box(BKind.block)])
     mariomap.append([Box(BKind.block), Box(BKind.empty), Box(BKind.block), Box(BKind.block), Box(BKind.empty), Box(BKind.empty), Box(BKind.block), Box(BKind.empty), Box(BKind.block)])
@@ -50,102 +56,112 @@ def CreateMarioMap2():
     mariomap.append([Box(BKind.block), Box(BKind.empty), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.empty), Box(BKind.block), Box(BKind.empty), Box(BKind.block)])
     mariomap.append([Box(BKind.block), Box(BKind.empty), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.empty), Box(BKind.block), Box(BKind.block), Box(BKind.block)])
     mariomap.append([Box(BKind.block), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.empty), Box(BKind.block)])
-    mariomap.append([Box(BKind.block), Box(BKind.block), Box(BKind.empty), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block)])
+    mariomap.append([Box(BKind.block), Box(BKind.block), Box(BKind.pipe), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block), Box(BKind.block)])
     return mariomap
 
+def printMap(mario_map, path=""):
+    for x, pos in enumerate(mario_map[0]):
+        if pos.kind.name == BKind.start.name:
+            start = x
 
-class SearchState(Enum):
-    success = 0
-    cutoff = 1
-    failure = 2
+    i = start
+    j = 0
+    pos = set()
+    #print(pos)
+    for move in path:
+        if move == "L":
+            i -= 1
+
+        elif move == "R":
+            i += 1
+
+        elif move == "U":
+            j -= 1
+
+        elif move == "D":
+            j += 1
+        pos.add((j, i))
+
+    for j, row in enumerate(mario_map):
+        for i, col in enumerate(row):
+            if (j, i) in pos:
+                print(BKind.path.value + " ", end="")
+            else:
+                print(col.kind.value + " ", end="")
+        print()
 
 
-def GetActionState(state, action):
-    next_move = []
-    if action == "U":
-        next_move = [state[0]+1, state[1]]
-    if action == "D":
-        next_move = [state[0]-1, state[1]]
-    if action == "L":
-        next_move = [state[0], state[1]-1]
-    if action == "R":
-        next_move = [state[0], state[1]+1]
-    return next_move
+def Valid(mario_map, moves):
+    for x, pos in enumerate(mario_map[0]):
+        if pos.kind.name == BKind.start.name:
+            start = x
+
+    i = start
+    j = 0
+    for move in moves:
+        if move == "L":
+            i -= 1
+
+        elif move == "R":
+            i += 1
+
+        elif move == "U":
+            j -= 1
+
+        elif move == "D":
+            j += 1
+
+        if not(0 <= i < len(mario_map[0]) and 0 <= j < len(mario_map)):
+            return False
+        elif (mario_map[j][i].kind == BKind.block):
+            return False
+
+    return True
 
 
-def Valid(state, action, mario_map=CreateMarioMap2()):
-    move = GetActionState(state, action)
-    #print(move)
-    if move[0] < 0:  # Outof bounds up
-        return False
-    elif move[1] < 0:  # Outof bounds left
-        return False
-    elif move[0] > len(mario_map)-1:  # Outof bounds down (max rows )
-        return False
-    elif move[1] > len(mario_map[0])-1:  # Outof bounds right (max columns )
-        return False
-    elif mario_map[move[0]][move[1]].kind == BKind.block: # Block blocking the move
-        return False
-    else:
+def findEnd(mario_map, moves):
+    start = 0
+    for x, pos in enumerate(mario_map[0]):
+        if pos.kind.name == BKind.start.name:
+            start = x
+    #print(pos.kind.name)
+    i = start
+    j = 0
+    for move in moves:
+        if move == "L":
+            i -= 1
+
+        elif move == "R":
+            i += 1
+
+        elif move == "U":
+            j -= 1
+
+        elif move == "D":
+            j += 1
+
+    if mario_map[j][i].kind == BKind.pipe:
+        print("Found: " + moves)
+        printMap(mario_map, moves)
         return True
 
-
-def TransitionFunction(state, actions):
-    succesors = []
-    next_move = []
-    for action in actions:
-        #print(Valid(state, action))
-        if Valid(state, action):
-            next_move = GetActionState(state, action)
-            succesors.append(next_move)
-            # print(succesors)
-    return succesors
-
-
-def PipeBfs(initialState, goalState, actions):
-    opened = queue.Queue()
-    opened.put(initialState)
-    path = []   #Queue of lists  saves all moves made
-    while (opened.qsize() != 0):
-        state = opened.get()  # dequeue                         # Actual state will be the first queue element (that we also pop out off the queue)
-        path.append(state)
-        if (state == goalState):  # Goal Test
-            #print("Found: " + actions)
-            #printMaze(marioMap, actions)
-            print(path)
-            return SearchState.success
-        else:
-            succesors = []
-            succesors = TransitionFunction(state, actions)      # Obtaining / expanding all succesor states/nodes
-            # print(succesors)
-            for succesor in succesors:                          # Enqueueing or adding the succesors to the queue
-                opened.put(succesor)
-    return SearchState.failure
-
-
-move = ""
-marioMap = CreateMarioMap2()
-startState = [2, 8]  # marioMap[2][8]  # X startpoint
-actions = ["L", "R", "U", "D"]
-goal = [0, 5]  # marioMap[0][5]  # O startpoint
-result = PipeBfs(startState, goal, actions)
-print("Result:", result)
-
-# print(len(marioMap[0]))
-#print([0, 1] == [1, 1])
-# print(enumerate(maze[0]))
-
-#Testing Box cost attribute
-#casilla = Box(" ")
-#print(casilla.cost)
+    return False
 
 
 
-# TESTING GETTING BOX KIND
 
-#box_type = BKind.pipe
-#print(box_type.name)
-
-#move = [0, 5]
-#print (marioMap[0][0].kind.name)
+nums = queue.Queue()  # Actions Queue
+nums.put("")          # Initializing empty queue
+path = ""  # First path in map
+mario_map = CreateMarioMap3()  # Creating the map
+moves = ["L", "R", "U", "D"]
+while not findEnd(mario_map, path):# == False:
+    path = nums.get()  # Set of moves Ex. LLURU
+    ##print(path)
+    #time.sleep(5)
+    for move in moves:
+        posible_path = path + move
+        #print(posible_path)
+        if Valid(mario_map, posible_path):  # Validates if a path is posible
+            nums.put(posible_path)
 
