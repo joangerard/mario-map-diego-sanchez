@@ -144,11 +144,11 @@ Bajarse o clonarse el repositorio.
 
 Hice 2 formas de correr el programa:
 
-## program1.py
+## program.py
 
 Esta solucion es diferente de "program2.py", porque esta mejor organizada, con una estructura de clases como ya se explico en puntos anteriores.
 
-Simplemente ejecutar "py .\program1.py" en la consola dentro de la carpeta raiz del proyecto.
+Simplemente ejecutar "py .\program.py" en la consola dentro de la carpeta raiz del proyecto.
 
 Se abrira un menu que indica que se debe elegir las opciones 1, 2, 3 o 9.
 Las primeras tres opciones hacen lo mismo. Resuelven el unico mapa por defecto que se logro crear.
