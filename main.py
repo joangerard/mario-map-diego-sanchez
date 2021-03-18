@@ -150,18 +150,18 @@ def findEnd(mario_map, moves):
 
 
 
-nums = queue.Queue()  # Actions Queue
-nums.put("")          # Initializing empty queue
+actions = queue.Queue()  # Actions Queue
+actions.put("")          # Initializing empty queue
 path = ""  # First path in map
 mario_map = CreateMarioMap3()  # Creating the map
 moves = ["L", "R", "U", "D"]
 while not findEnd(mario_map, path):# == False:
-    path = nums.get()  # Set of moves Ex. LLURU
+    path = actions.get()  # Set of moves Ex. LLURU
     ##print(path)
     #time.sleep(5)
     for move in moves:
         posible_path = path + move
         #print(posible_path)
         if Valid(mario_map, posible_path):  # Validates if a path is posible
-            nums.put(posible_path)
+            actions.put(posible_path)
 
