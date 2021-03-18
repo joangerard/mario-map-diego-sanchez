@@ -111,9 +111,9 @@ def Valid(mario_map, moves):
         elif move == "D":
             j += 1
 
-        if not(0 <= i < len(mario_map[0]) and 0 <= j < len(mario_map)):
+        if not(0 <= i < len(mario_map[0]) and 0 <= j < len(mario_map)): #Out of bounds control
             return False
-        elif (mario_map[j][i].kind == BKind.block):
+        elif (mario_map[j][i].kind == BKind.block): #Blocked Box controll
             return False
 
     return True
